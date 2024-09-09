@@ -145,7 +145,90 @@ while True:
 
 
     if appvalg == 3:
-        print("denne appen er ikke ferdig enda")
+        #tic-tac-toe
+
+        brett = [" " for x in range(9)]
+
+        def print_brett():
+            rad1 = "| {} | {} | {} |".format(brett[0], brett[1], brett[2])
+            rad2 = "| {} | {} | {} |".format(brett[3], brett[4], brett[5])
+            rad3 = "| {} | {} | {} |".format(brett[6], brett[7], brett[8])
+
+            print()
+            print(rad1)
+            print(rad2)
+            print(rad3)
+            print()
+
+
+        def bruker_bevegelse(icon):
+            if icon == "X":
+                nummer = 1
+
+            elif icon == "O":
+                nummer = 2
+
+            print("Your turn player {}".format(nummer))
+            valg = int(input("Enter your move (1-9): ").strip())
+
+            if brett[valg - 1] == " ":
+                brett[valg - 1] = icon
+
+            else:
+                print()
+                print("That space is already taken!")
+        
+
+        def vinner(icon):
+            if  (brett[0] == icon and brett[1] == icon and brett[2] == icon) or \
+                (brett[3] == icon and brett[4] == icon and brett[5] == icon) or \
+                (brett[6] == icon and brett[7] == icon and brett[8] == icon) or \
+                (brett[0] == icon and brett[3] == icon and brett[6] == icon) or \
+                (brett[1] == icon and brett[4] == icon and brett[7] == icon) or \
+                (brett[2] == icon and brett[5] == icon and brett[8] == icon) or \
+                (brett[0] == icon and brett[4] == icon and brett[8] == icon) or \
+                (brett[2] == icon and brett[4] == icon and brett[6] == icon):
+                return True
+            
+            else:
+                return False
+        
+
+        def likt():
+            if " " not in brett:
+                return True
+            
+            else:
+                return False
+
+
+        while True:
+            print_brett()
+            bruker_bevegelse("X")
+            print_brett()
+
+            if vinner("X"):
+                print("X wins! Congratulations!")
+                break
+
+            elif likt():
+                print("It's a draw!")
+                break
+
+            bruker_bevegelse("O")
+            if vinner("O"):
+                print_brett()
+                print("O wins! Congratulations!")
+                break
+            
+            elif likt():
+                print("It's a draw!")
+                break
+
+
+        tilbake = int(input("Vil du gå tilbake til hovedmenyen? 1 = Ja, 2 = Nei "))
+        if tilbake == 1:
+            break
 
 
     if appvalg == 4:
