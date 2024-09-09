@@ -147,7 +147,7 @@ while True:
     if appvalg == 3:
         #tic-tac-toe
 
-        brett = [" " for x in range(9)]
+        brett = [str(x+1) for x in range(9)]
 
         def print_brett():
             rad1 = "| {} | {} | {} |".format(brett[0], brett[1], brett[2])
@@ -168,15 +168,17 @@ while True:
             elif icon == "O":
                 nummer = 2
 
-            print("Your turn player {}".format(nummer))
-            valg = int(input("Enter your move (1-9): ").strip())
+            while True:
 
-            if brett[valg - 1] == " ":
-                brett[valg - 1] = icon
+                print("Din tur spiller {}".format(nummer))
+                valg = int(input("Skriv inn ditt trekk (1-9): ").strip())
 
-            else:
-                print()
-                print("That space is already taken!")
+                if brett[valg - 1] not in ["X", "O"]:
+                    brett[valg - 1] = icon
+                    break
+                else:
+                    print()
+                    print("Den plassen er allerede okkupert! Velg en ny en")
         
 
         def vinner(icon):
@@ -195,7 +197,7 @@ while True:
         
 
         def likt():
-            if " " not in brett:
+            if all(x in ["X", "O"] for x in brett): 
                 return True
             
             else:
@@ -208,21 +210,21 @@ while True:
             print_brett()
 
             if vinner("X"):
-                print("X wins! Congratulations!")
+                print("X vinner!")
                 break
 
             elif likt():
-                print("It's a draw!")
+                print("Det er uavgjort!")
                 break
 
             bruker_bevegelse("O")
             if vinner("O"):
                 print_brett()
-                print("O wins! Congratulations!")
+                print("O vinner!")
                 break
-            
+
             elif likt():
-                print("It's a draw!")
+                print("Det er uavgjort!")
                 break
 
 
